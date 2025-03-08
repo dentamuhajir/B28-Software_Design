@@ -10,22 +10,16 @@ public class Restaurant {
         customer.orderMenu("Es Teh");
 
         Server server = new Waiter();
-
+        Kitchen kitchen = new Chef();
+        List <String> foodReady = new ArrayList<>();
         for(String order: ((CustomerDineIn) customer).getOrder()) {
-            System.out.println(order);
+
+            foodReady.add(kitchen.makeFood(order));
         }
 
-        //System.out.println(((CustomerDineIn) customer).getOrder());
+        server.serveFood(foodReady);
 
-//        for(String order : ()) {
-//
-//        }
-
-//        foreach (order: List customer.getOrder()) {
-//
-//            System.out.println(order);
-//
-//        }
+        customer.payBills();
     }
 }
 
@@ -38,10 +32,18 @@ interface Server {
     void serveFood(List order);
 }
 
-interface chef {
-    void makeFood();
+interface Kitchen {
+    String makeFood(String order);
 }
 
+class Chef implements Kitchen {
+    @Override
+    public String makeFood(String order) {
+        String foodFinished = order;
+        System.out.println("Chef cooking a " + order);
+        return foodFinished;
+    }
+}
 class Waiter implements Server {
     //    List order = new ArrayList();
 //    public Waiter(List order) {
@@ -49,7 +51,7 @@ class Waiter implements Server {
 //    }
     @Override
     public void serveFood(List order) {
-        System.out.println("Waiter serving a customer order " + order);
+        System.out.println("Waiter serving order " + order + " to customer");
     }
 }
 class CustomerDineIn implements customer {
@@ -70,7 +72,7 @@ class CustomerDineIn implements customer {
 
     @Override
     public void payBills() {
-
+        System.out.println("Customer " + name + " pay bills");
     }
 }
 
