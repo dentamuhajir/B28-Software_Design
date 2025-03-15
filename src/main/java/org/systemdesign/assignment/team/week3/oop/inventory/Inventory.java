@@ -1,24 +1,24 @@
-package org.systemdesign.assignment.team.week3;
-
-import java.sql.SQLOutput;
+package org.systemdesign.assignment.team.week3.oop.inventory;
 
 public class Inventory {
     public static void main(String[] args) {
-        InventoryInformation computerInfo = new InventoryInformation("Good", 1, "West Jakarta");
+        InventoryInformation computerInfo = new InventoryInformation("computer","Good", 1, "West Jakarta");
         InventoryOperation computer = new InventoryOperation(computerInfo);
         computer.CheckCondition();
-        computer.trace();
+        computer.traceLocation();
         System.out.println(computer.checkAvailability(true));
     }
 }
 
 
 class InventoryInformation {
+    private String name;
     private String condition;
     private int age;
     private String storageLocation;
 
-    InventoryInformation(String condition, int age, String storageLocation ) {
+    InventoryInformation(String name, String condition, int age, String storageLocation ) {
+        this.name = name;
         this.condition = condition;
         this.age = age;
         this.storageLocation = storageLocation;
@@ -31,6 +31,10 @@ class InventoryInformation {
     public String getStorageLocation() {
         return storageLocation;
     }
+
+    public String getName() {
+        return name;
+    }
 }
 class InventoryOperation {
     private Boolean isAvailable;
@@ -41,11 +45,11 @@ class InventoryOperation {
     }
 
     public void CheckCondition(){
-        System.out.println("The condition of inventory : " + inventoryInformation.getCondition());
+        System.out.println("The " +inventoryInformation.getName()+ " inventory condition is " + inventoryInformation.getCondition());
     }
 
-    public void trace(){
-        System.out.println("The trace location of inventory : " + inventoryInformation.getStorageLocation());
+    public void traceLocation(){
+        System.out.println("The "+ inventoryInformation.getName() +" inventory storage location in " + inventoryInformation.getStorageLocation());
     }
 
     public void setAvailable(Boolean available) {
@@ -54,10 +58,7 @@ class InventoryOperation {
 
     public String checkAvailability(Boolean available) {
         setAvailable(available);
-        if(getAvailable()){
-            return "The inventory is available";
-        }
-        return "The inventory is not available";
+        return getAvailable() ? "The "+  inventoryInformation.getName()+ " inventory is available" : "The "+  inventoryInformation.getName()+ " inventory is not available" ;
     }
 
     public Boolean getAvailable() {
